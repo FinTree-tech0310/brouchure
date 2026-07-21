@@ -61,13 +61,20 @@ window.addEventListener('error', function(){
   }
   function flushReveals(){
     if (!revealQueue.length){ revealTimer = null; return; }
-    revealQueue.shift().classList.add('in');
+    /* big jumps (fast scrolling) catch up in larger batches so the cascade
+       stays quick instead of replaying dozens of blocks one at a time */
+    var batch = revealQueue.length > 12 ? 4 : 1;
+    while (batch-- && revealQueue.length) revealQueue.shift().classList.add('in');
     revealTimer = setTimeout(flushReveals, reduced ? 0 : 110);
   }
   function syncReveals(drawnY){
+    /* safety floor: anything that has scrolled into view reveals too — the tip
+       can't reach the last few pixels of the page, so blocks below the
+       end-tree would otherwise stay hidden forever */
+    var floorY = window.scrollY + window.innerHeight;
     revealEls.forEach(function(item){
       /* anything sitting below the end-tree reveals when the line completes */
-      if (Math.min(item.y, treeY) < drawnY + 40 &&
+      if ((Math.min(item.y, treeY) < drawnY + 40 || item.y < floorY) &&
           !item.el.classList.contains('in') && revealQueue.indexOf(item.el) === -1){
         revealQueue.push(item.el);
       }
