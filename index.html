@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Why FinTree — An Educator to the Financial Markets</title>
 <meta name="description" content="Fourteen years of making finance finally click. A calm walk through the CFA path, the LPR method, and where it leads — with FinTree, Pune.">
+<link rel="preconnect" href="https://www.youtube-nocookie.com" crossorigin>
+<link rel="preconnect" href="https://i.ytimg.com">
+<link rel="dns-prefetch" href="https://www.googlevideo.com">
 <script>document.documentElement.classList.add('js');</script>
 <style>
 /* self-hosted fonts — no external requests */
@@ -444,7 +447,7 @@ h3{font-size:clamp(1.15rem,2.2vw,1.4rem)}
 .demo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2.2vw,24px);margin-top:30px}
 .demo-grid .yt .sub-name{font-size:.8rem;font-weight:700;color:var(--navy);letter-spacing:.02em}
 .demo-vids{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.4vw,26px);margin-top:28px}
-.yt-embed{margin:0}
+.yt-embed{margin:0;position:relative}
 .yt-facade{position:relative;display:block;width:100%;aspect-ratio:16/9;padding:0;border:2.5px solid var(--navy);border-radius:var(--r2);background:var(--navy);overflow:hidden;cursor:pointer;transition:transform .35s ease,box-shadow .35s ease}
 .yt-embed:nth-child(1) .yt-facade,.yt-embed:nth-child(1) iframe{border-radius:var(--r1)}
 .yt-embed:nth-child(3) .yt-facade,.yt-embed:nth-child(3) iframe{border-radius:var(--r3)}
@@ -454,6 +457,7 @@ h3{font-size:clamp(1.15rem,2.2vw,1.4rem)}
 .yt-embed:hover .yt-facade{transform:translateY(-4px) rotate(-.35deg);box-shadow:0 18px 32px -22px rgba(19,13,138,.55)}
 .yt-embed:hover .yt-facade .play{transform:translate(-50%,-50%) scale(1.08);background:rgba(19,13,138,.78)}
 .yt-embed iframe{display:block;width:100%;aspect-ratio:16/9;border:2.5px solid var(--navy);border-radius:var(--r2);background:var(--navy)}
+.yt-embed iframe.warming{position:absolute;left:0;top:0;opacity:0;pointer-events:none}
 .yt-embed figcaption{margin-top:10px}
 .yt-embed figcaption strong{display:block;font-family:var(--head);font-weight:700;color:var(--navy)}
 .yt-embed figcaption span{font-size:.8rem;color:var(--ink-soft)}

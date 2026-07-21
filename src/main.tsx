@@ -49,18 +49,39 @@ window.addEventListener('error', function(){
   function navScroll(){ nav.classList.toggle('scrolled', window.scrollY > 30); }
 
   /* ================= reveal on scroll ================= */
-  var ioFired = false;
-  var io = new IntersectionObserver(function(entries){
-    ioFired = true;
-    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  /* sections reveal one by one, driven by the thread itself: each time the
+     line draws forward, the next block whose position the tip has reached
+     fades in — the line leads, the content follows */
+  var revealEls = [];        /* [{el, y}] sorted by document y, re-cached on every buildThread */
+  var revealQueue = [], revealTimer = null;
+  function cacheReveals(){
+    revealEls = Array.prototype.slice.call(document.querySelectorAll('.reveal')).map(function(el){
+      return { el: el, y: el.getBoundingClientRect().top + window.scrollY };
+    }).sort(function(a, b){ return a.y - b.y; });
+  }
+  function flushReveals(){
+    if (!revealQueue.length){ revealTimer = null; return; }
+    revealQueue.shift().classList.add('in');
+    revealTimer = setTimeout(flushReveals, reduced ? 0 : 110);
+  }
+  function syncReveals(drawnY){
+    revealEls.forEach(function(item){
+      /* anything sitting below the end-tree reveals when the line completes */
+      if (Math.min(item.y, treeY) < drawnY + 40 &&
+          !item.el.classList.contains('in') && revealQueue.indexOf(item.el) === -1){
+        revealQueue.push(item.el);
+      }
+    });
+    if (revealQueue.length && revealTimer === null) flushReveals();
+  }
   /* init succeeded — only now is it safe to let CSS gate visibility */
   document.documentElement.classList.add('fx');
-  /* watchdog: shortly after load, reveal everything unconditionally — the page
-     must never depend on scroll or on the observer for content to be visible */
+  /* failsafe: if the thread failed to initialise, reveal everything — the page
+     must never depend on the line for content to be visible */
   setTimeout(function(){
-    document.querySelectorAll('.reveal:not(.in)').forEach(function(el){ el.classList.add('in'); });
+    if (!pathEl){
+      document.querySelectorAll('.reveal:not(.in)').forEach(function(el){ el.classList.add('in'); });
+    }
   }, 1400);
 
   /* ================= the seam (thread) ================= */
@@ -99,6 +120,7 @@ window.addEventListener('error', function(){
   function buildThread(){
     /* body zoom (mobile 75%) shrinks the svg's used height — pre-compensate so the
        thread still spans the full page, while all other math stays in visual pixels */
+    cacheReveals();
     var ZF = parseFloat(getComputedStyle(document.body).zoom) || 1;
     var docH = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
     svg.setAttribute('viewBox', '0 0 ' + window.innerWidth + ' ' + docH);
@@ -172,7 +194,9 @@ window.addEventListener('error', function(){
   var pShown = 0, threadRaf = null;
   function threadTarget(){
     if (reduced) return 1;
-    return Math.min(1, (window.scrollY + window.innerHeight * 0.88) / Math.max(treeY, 1));
+    /* tip sits ~30% up from the bottom edge so the line is visibly drawing
+       forward as you scroll, instead of feeling like a static pre-drawn line */
+    return Math.min(1, (window.scrollY + window.innerHeight * 0.70) / Math.max(treeY, 1));
   }
   function drawThread(){
     pathEl.style.strokeDashoffset = pathLen * (1 - pShown);
@@ -180,6 +204,7 @@ window.addEventListener('error', function(){
     doodles.forEach(function(dg){
       dg.classList.toggle('on', reduced || parseFloat(dg.dataset.y) < drawnY + 40);
     });
+    syncReveals(drawnY);
   }
   function threadStep(){
     var t = threadTarget();
@@ -371,19 +396,66 @@ window.addEventListener('error', function(){
   wireTabs(demoTabs, function(tab){ renderDemos(tab.dataset.level); });
   renderDemos('Level I');
 
-  /* level demo videos: click-to-play facades (thumbnail swaps to live embed).
-     Delegated, so facades rendered later by renderDemos work too. */
-  document.addEventListener('click', function(e){
-    var btn = e.target && e.target.closest ? e.target.closest('.yt-embed .yt-facade') : null;
-    if (!btn) return;
-    var fig = btn.closest('.yt-embed');
+  /* level demo videos: click-to-play facades. To make playback start fast, the
+     player iframe is pre-loaded (hidden, no autoplay) as soon as a facade is
+     hovered or focused; on click we just reveal it and send the play command —
+     the player is already warm. A cold click (no prior hover) falls back to a
+     fresh autoplay embed. Delegated, so facades rendered later by renderDemos
+     work too. */
+  function makeYtIframe(fig, autoplay){
     var ifr = document.createElement('iframe');
-    ifr.src = 'https://www.youtube-nocookie.com/embed/' + fig.dataset.vid + '?autoplay=1&rel=0';
+    ifr.src = 'https://www.youtube-nocookie.com/embed/' + fig.dataset.vid +
+      '?enablejsapi=1&rel=0' + (autoplay ? '&autoplay=1' : '');
     ifr.title = fig.dataset.title || 'FinTree video';
     ifr.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
     ifr.setAttribute('allowfullscreen', '');
     ifr.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
-    btn.replaceWith(ifr);
+    return ifr;
+  }
+  /* with enablejsapi the iframe posts JSON messages once its player is alive —
+     that is the cue that a queued play command will land */
+  var ytPending = [];
+  window.addEventListener('message', function(e){
+    if (typeof e.data !== 'string' || e.data.charAt(0) !== '{') return;
+    for (var i = ytPending.length - 1; i >= 0; i--){
+      if (ytPending[i].contentWindow === e.source){
+        ytPending[i].contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+        ytPending.splice(i, 1);
+      }
+    }
+  });
+  function warmYtFacade(fig){
+    if (!fig || fig.dataset.warmed || fig.classList.contains('playing')) return;
+    fig.dataset.warmed = '1';
+    var ifr = makeYtIframe(fig, false);
+    ifr.className = 'warming';
+    fig.insertBefore(ifr, fig.firstChild);
+  }
+  document.addEventListener('pointerover', function(e){
+    var fig = e.target && e.target.closest ? e.target.closest('.yt-embed') : null;
+    if (fig) warmYtFacade(fig);
+  });
+  document.addEventListener('focusin', function(e){
+    var fig = e.target && e.target.closest ? e.target.closest('.yt-embed') : null;
+    if (fig) warmYtFacade(fig);
+  });
+  document.addEventListener('click', function(e){
+    var btn = e.target && e.target.closest ? e.target.closest('.yt-embed .yt-facade') : null;
+    if (!btn) return;
+    var fig = btn.closest('.yt-embed');
+    var ifr = fig.querySelector('iframe.warming');
+    fig.classList.add('playing');
+    if (ifr){
+      /* warm player: reveal it and play — sent now (a warm player obeys at once;
+         duplicates are harmless) and queued until the player signals it is alive */
+      ytPending.push(ifr);
+      ifr.classList.remove('warming');
+      btn.style.display = 'none';
+      ifr.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+    } else {
+      /* cold click: swap the facade for a fresh autoplay embed */
+      btn.replaceWith(makeYtIframe(fig, true));
+    }
   });
 
   /* ================= plans & fees (mirrors the course-page system) ================= */
