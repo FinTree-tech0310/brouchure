@@ -13,9 +13,16 @@ window.addEventListener('error', function(){
   /* ================= editable configs ================= */
 
   /* Attempt simulator: study hours/day -> realistic first attempt window.
-     Same mapping across all three levels for now — refine per level later. */
+     Mapping follows the Flow spec per level:
+       L1: 6-8 -> Feb 2027, 4-6 -> May 2027, 2-4 -> Aug 2027
+       L2: 6-8 -> May 2027, 4-6 -> May 2027, 2-4 -> Aug 2027
+       L3: 6-8 -> Feb 2027, 4-6 -> Feb 2027, 2-4 -> Aug 2027 */
   var SIM_CONFIG = {
-    attemptByHours: { '6-8': 'February 2027', '4-6': 'May 2027', '2-4': 'August 2027' },
+    attemptByLevel: {
+      'Level I':   { '6-8': 'February 2027', '4-6': 'May 2027',      '2-4': 'August 2027' },
+      'Level II':  { '6-8': 'May 2027',      '4-6': 'May 2027',      '2-4': 'August 2027' },
+      'Level III': { '6-8': 'February 2027', '4-6': 'February 2027', '2-4': 'August 2027' }
+    },
     hoursLabel:     { '2-4': '2–4 hrs/day',   '4-6': '4–6 hrs/day', '6-8': '6–8 hrs/day' }
   };
 
@@ -297,7 +304,8 @@ window.addEventListener('error', function(){
   function showStep(n){
     step = n;
     if (n === 3){
-      /* hours options depend on persona: student -> 4-6 / 6-8, working -> 2-4 / 4-6 */
+      /* hours options follow the Flow spec: all three ranges show for both
+         personas (data-personas gates visibility, kept for future tweaks) */
       var pk = state.persona === 'Student' ? 'student' : 'working';
       sim.querySelectorAll('.sim-opt[data-key="hours"]').forEach(function(b){
         var show = (b.dataset.personas || '').indexOf(pk) !== -1;
@@ -316,7 +324,7 @@ window.addEventListener('error', function(){
     paintProgress(3, true);
     document.getElementById('simEcho').textContent =
       state.level + ' · ' + state.persona + ' · ' + SIM_CONFIG.hoursLabel[state.hours] + ' →';
-    document.getElementById('simMonth').textContent = SIM_CONFIG.attemptByHours[state.hours];
+    document.getElementById('simMonth').textContent = SIM_CONFIG.attemptByLevel[state.level][state.hours];
     resultEl.hidden = false;
     buildThread();
   }
@@ -343,15 +351,19 @@ window.addEventListener('error', function(){
   (function(){
     var track = document.querySelector('.review-track');
     if (!track) return;
-    var off = 0, dragging = false, dragX = 0, dragOff = 0, hovering = false, lastT = 0;
+    var off = 0, dragging = false, dragX = 0, dragOff = 0, hovering = false, lastT = 0, inView = true;
     var SPEED = 72; /* px/s — same pace as the old CSS loop */
     function half(){ return track.scrollWidth / 2; }
     function wrap(){ var h = half(); while (h > 0 && off <= -h) off += h; while (h > 0 && off > 0) off -= h; }
     function loop(t){
       if (!lastT) lastT = t;
       var dt = Math.min(0.05, (t - lastT) / 1000); lastT = t;
-      if (!dragging && !hovering && !reduced){ off -= SPEED * dt; wrap(); }
-      track.style.transform = 'translateX(' + off.toFixed(1) + 'px)';
+      /* skip all work while the strip is offscreen — no point animating what
+         nobody sees, it just burns frames during initial load */
+      if (inView || dragging){
+        if (!dragging && !hovering && !reduced){ off -= SPEED * dt; wrap(); }
+        track.style.transform = 'translateX(' + off.toFixed(1) + 'px)';
+      }
       window.requestAnimationFrame(loop);
     }
     track.addEventListener('pointerdown', function(e){
@@ -370,6 +382,9 @@ window.addEventListener('error', function(){
     if (car){
       car.addEventListener('mouseenter', function(){ hovering = true; });
       car.addEventListener('mouseleave', function(){ hovering = false; });
+      if ('IntersectionObserver' in window){
+        new IntersectionObserver(function(entries){ inView = entries[0].isIntersecting; }).observe(car);
+      }
     }
     window.requestAnimationFrame(loop);
   })();
@@ -622,11 +637,12 @@ window.addEventListener('error', function(){
 
     var tx = 0, ty = 0, cx = 0, cy = 0, tiltC = 0, cupRaf = null, cupShown = false;
     function cupStep(){
-      /* silky glide: small lerp on position, tilt eased through its own spring */
-      cx += (tx - cx) * 0.06;
-      cy += (ty - cy) * 0.06;
+      /* responsive glide: brisk lerp so the cup keeps up with the cursor,
+         tilt eased through its own spring */
+      cx += (tx - cx) * 0.2;
+      cy += (ty - cy) * 0.2;
       var tiltTarget = Math.max(-9, Math.min(9, (tx - cx) * 0.055));
-      tiltC += (tiltTarget - tiltC) * 0.08;
+      tiltC += (tiltTarget - tiltC) * 0.14;
       cup.style.transform = 'translate(' + (cx + 30).toFixed(1) + 'px,' + (cy + 20).toFixed(1) + 'px) rotate(' + tiltC.toFixed(2) + 'deg)';
       if (Math.abs(tx - cx) > 0.3 || Math.abs(ty - cy) > 0.3 || Math.abs(tiltTarget - tiltC) > 0.05){
         cupRaf = requestAnimationFrame(cupStep);
