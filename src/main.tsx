@@ -26,17 +26,16 @@ window.addEventListener('error', function(){
     hoursLabel:     { '2-4': '2–4 hrs/day',   '4-6': '4–6 hrs/day', '6-8': '6–8 hrs/day' }
   };
 
-  /* Demo lectures: subject lists per attempt. Level I slots now carry the real
-     YouTube lectures from the CFA Level-I Demo playlist (9 subjects — no Ethics
-     lecture exists, so that slot is gone). L2/L3 stay placeholders. */
+  /* Demo lectures: subject lists per attempt. Level I & Level II slots now carry the real
+     YouTube lectures from their respective CFA Demo playlists. L3 stays placeholder. */
   var DEMO_SUBJECTS = {
     'Level I':   [['QM','Quantitative Methods'],['ECO','Economics'],['FSA','Financial Statement Analysis'],['CI','Corporate Issuers'],['EQ','Equity Investments'],['FI','Fixed Income'],['DER','Derivatives'],['ALT','Alternative Investments'],['PM','Portfolio Management']],
-    'Level II':  [['QM','Quantitative Methods'],['ECO','Economics'],['FSA','Financial Statement Analysis'],['CI','Corporate Issuers'],['EQ','Equity Investments'],['FI','Fixed Income'],['DER','Derivatives'],['ALT','Alternative Investments'],['PM','Portfolio Management'],['ETH','Ethical & Professional Standards']],
+    'Level II':  [['QM','Quantitative Methods'],['ECO','Economics'],['FSA','Financial Statement Analysis'],['CI','Corporate Issuers'],['EQ','Equity Investments'],['FI','Fixed Income'],['DER','Derivatives'],['ALT','Alternative Investments'],['PM','Portfolio Management']],
     'Level III': [['QM','Quantitative Methods'],['ECO','Economics'],['FSA','Financial Statement Analysis'],['CI','Corporate Issuers'],['EQ','Equity Investments'],['FI','Fixed Income'],['DER','Derivatives'],['ALT','Alternative Investments'],['PM','Portfolio Management'],['ETH','Ethical & Professional Standards']]
   };
   var LEVEL_CODE = { 'Level I':'L1', 'Level II':'L2', 'Level III':'L3' };
 
-  /* real lecture per Level I subject: code -> [youtube id, topic label] */
+  /* real lecture per Level I & Level II subject: code -> [youtube id, topic label] */
   var DEMO_VIDEOS = {
     'L1': {
       QM:  ['uboV9HEj2gk', 'Normal Distribution · 13 mins'],
@@ -48,6 +47,17 @@ window.addEventListener('error', function(){
       DER: ['v6tq01bOE28', 'Put Call Parity · 23 mins'],
       ALT: ['RWGw9Zy5s2I', 'Hedge Funds · 29 mins'],
       PM:  ['UZJ61gIWHjY', 'Efficient Frontier · 43 mins']
+    },
+    'L2': {
+      QM:  ['7K4UOTuE95w', 'ARCH and GARCH (  38 mins ) · Quantitative Methods'],
+      ECO: ['jyjrPXDNIh8', 'Triangular Arbitrage ( 17 mins ) · Economics'],
+      FSA: ['a4rBo2e1z6k', 'ESOPS ( 17 mins ) · Financial Statement Analysis'],
+      CI:  ['bhy5MEGY69E', 'Cost of Capital : Advance Topics ( 30 mins ) · Corporate Issuers'],
+      EQ:  ['JklFfDHaw4I', 'Market Based Valuation ( 30 mins ) · Equity Investments'],
+      FI:  ['HN_F5lEUTd0', 'Credit Analysis Model ( 24 mins ) · Fixed Income'],
+      DER:  ['knXUCzXJPhg', 'Black and Sholes ( 34 mins ) · Derivatives'],
+      ALT:  ['uxd9GU5L1i4', 'Hedge Fund Strategies ( 24 mins ) · Alternative Investments'],
+      PM:  ['zNg8oBqI5Bw', 'Analysis of Active Portfolio Management ( 22 mins ) · Portfolio Management']
     }
   };
 
