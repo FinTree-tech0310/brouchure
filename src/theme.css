@@ -1,0 +1,130 @@
+/* ==========================================================================
+   FINTREE — CENTRAL DESIGN TOKENS
+   Design system: "Clarity Notebook" v1.0 (July 2026)
+   Source: FinTree-Clarity-Notebook-Brand-Guidelines-Static-and-Motion.pdf
+   --------------------------------------------------------------------------
+   Every component reads from these variables. To restyle, edit this ONE file.
+   ========================================================================== */
+
+/* ---- Brand typefaces (self-hosted, see public/fonts) ---- */
+@font-face {
+  font-family: "Rethink Sans";
+  src: url("/fonts/rethink-sans-latin-400-normal.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Rethink Sans";
+  src: url("/fonts/rethink-sans-latin-600-normal.woff2") format("woff2");
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Rethink Sans";
+  src: url("/fonts/rethink-sans-latin-700-normal.woff2") format("woff2");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Rethink Sans";
+  src: url("/fonts/rethink-sans-latin-800-normal.woff2") format("woff2");
+  font-weight: 800; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Lato";
+  src: url("/fonts/lato-latin-400-normal.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Lato";
+  src: url("/fonts/lato-latin-400-italic.woff2") format("woff2");
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "Lato";
+  src: url("/fonts/lato-latin-700-normal.woff2") format("woff2");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Lato";
+  src: url("/fonts/lato-latin-900-normal.woff2") format("woff2");
+  font-weight: 900; font-style: normal; font-display: swap;
+}
+
+:root {
+  /* ---- Colour: brand palette (Clarity Notebook) ---- */
+  --ft-paper: #FAF6EC;            /* Warm Paper  — base surface (60–70%) */
+  --ft-cream: #F3EDDC;            /* Soft Cream  — alternate paper */
+  --ft-ink-color: #26221B;        /* Charcoal Ink — primary text */
+  --ft-indigo: #130D8A;           /* Brochure Indigo — authority (20–25%) */
+  --ft-cobalt: #293CD3;           /* FinTree Cobalt — interactive indigo */
+  --ft-evergreen: #03795D;        /* Evergreen — teaching accents (5–10%) */
+  --ft-chalk: #469B65;            /* Chalk Green — soft teaching accent */
+  --ft-gold: #F3B21E;             /* Click Gold — ONE action signal (<5%) */
+
+  /* ---- Colour: surfaces ---- */
+  --ft-page-bg: var(--ft-cream);          /* behind the card stack */
+  --ft-card-bg: var(--ft-paper);          /* default card surface */
+  --ft-card-bg-alt: var(--ft-cream);      /* alternate card surface */
+  --ft-card-bg-inverse: var(--ft-indigo); /* contrast card = indigo field */
+  --ft-surface-raised: #fffdf6;           /* tiles, chips, inner panels */
+  --ft-surface-sunken: #ece4cf;           /* placeholder image wells */
+
+  /* ---- Colour: ink ---- */
+  --ft-ink: var(--ft-ink-color);          /* primary text */
+  --ft-ink-soft: #57503f;                 /* secondary text on paper */
+  --ft-ink-faint: #8a7f66;                /* captions */
+  --ft-ink-inverse: #FAF6EC;              /* paper text on indigo */
+  --ft-ink-inverse-soft: #b9b4e4;         /* secondary text on indigo */
+
+  /* ---- Colour: lines & accents ---- */
+  --ft-line: #ddd3ba;                     /* hairlines on paper */
+  --ft-line-inverse: rgba(250, 246, 236, 0.22);
+  --ft-accent: var(--ft-indigo);          /* primary action (CTA fill) */
+  --ft-accent-ink: #ffffff;               /* white on indigo CTA */
+  --ft-accent-soft: #e3dff5;              /* indigo tint background */
+  --ft-teach: var(--ft-evergreen);        /* labels, progress, annotations */
+  --ft-signal: var(--ft-gold);            /* the single gold click point */
+  --ft-placeholder-ink: #a2967c;          /* placeholder labels */
+
+  /* ---- Typography ---- */
+  --ft-font-display: "Rethink Sans", "Segoe UI", system-ui, sans-serif;
+  --ft-font-body: "Lato", "Segoe UI", system-ui, sans-serif;
+  --ft-font-hand: "Segoe Print", "Bradley Hand", cursive; /* teacher notes */
+  --ft-font-mono: "SF Mono", "Roboto Mono", Menlo, Consolas, monospace;
+
+  /* Type scale — web adaptation of the 1080-px spec (72–96 display …) */
+  --ft-text-hero: clamp(2.6rem, 6.2vw, 5rem);
+  --ft-text-title: clamp(1.9rem, 4vw, 3.1rem);
+  --ft-text-sub: clamp(1.05rem, 1.6vw, 1.35rem);
+  --ft-text-body: 1.0625rem;
+  --ft-text-small: 0.875rem;
+  --ft-text-label: 0.75rem;
+
+  --ft-leading-tight: 1.06;
+  --ft-leading-body: 1.6;
+  --ft-tracking-label: 0.18em;    /* editorial labels: uppercase, spaced */
+
+  /* ---- Shape & depth ---- */
+  --ft-radius-card: 26px;
+  --ft-radius-tile: 16px;
+  --ft-radius-pill: 999px;
+  /* Organic corners — uneven radii on key containers (brand device) */
+  --ft-radius-organic: 255px 18px 225px 18px / 18px 225px 18px 255px;
+  --ft-radius-organic-sm: 18px 6px 20px 6px / 6px 20px 6px 18px;
+  --ft-shadow-card: 0 -14px 44px rgba(38, 34, 27, 0.14);
+  --ft-shadow-tile: 0 2px 10px rgba(38, 34, 27, 0.06);
+
+  /* ---- Layout ---- */
+  --ft-content-max: 1200px;
+  --ft-gutter: clamp(1.25rem, 6.5vw, 4.5rem); /* margins ≥ 6.5% short edge */
+  --ft-nav-height: 68px;
+
+  /* ---- Motion (Clarity Notebook timing & easing) ---- */
+  --ft-ease-stack: cubic-bezier(0.22, 1, 0.36, 1);  /* primary enter */
+  --ft-ease-emphasis: cubic-bezier(0.16, 1, 0.30, 1); /* key words, proof */
+  --ft-ease-exit: cubic-bezier(0.40, 0, 1, 1);      /* clean exit */
+  --ft-dur-stack: 620ms;                            /* scene change range */
+  --ft-dur-reveal: 480ms;                           /* card entrance 12–16fr */
+  --ft-stack-scale: 0.02;                           /* brand: scale 98–100% */
+  --ft-stack-lift: 32px;                            /* brand: translate 24–48 */
+  --ft-stack-dim: 0.28;
+  --ft-peek: 14px;                                  /* visible edge of next card */
+}
