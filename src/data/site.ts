@@ -14,7 +14,7 @@ export const SITE = {
   address:
     "FinTree, Ashok Sankul-2, 207, Second Floor, above ICICI Bank, Bhoslenagar, Pune, Maharashtra 411020",
   stats: [
-    { value: "14", label: "Years" },
+    { value: "15", label: "Years" },
     { value: "80,000+", label: "Learners" },
     { value: "50+", label: "Countries" },
     { value: "7,000+", label: "Careers launched" },
@@ -42,30 +42,6 @@ export const PROGRAMMES = [
     full: "Financial Modelling",
     blurb: "Models that drive billion-dollar decisions.",
     path: "/fm",
-  },
-];
-
-/* ---- Home: history timeline (unknown milestones are labelled) ---- */
-export const TIMELINE = [
-  {
-    year: "2011",
-    title: "FinTree is founded in Pune",
-    text: "Utkarsh Jain starts teaching with one rule: concept before memorisation.",
-  },
-  {
-    year: "[year — placeholder]",
-    title: "First batches beyond Pune",
-    text: "Classroom teaching grows into live online cohorts. [placeholder — confirm]",
-  },
-  {
-    year: "[year — placeholder]",
-    title: "Live School & Home School",
-    text: "Classroom, Live School and Home School take shape. [placeholder — confirm]",
-  },
-  {
-    year: "Today",
-    title: "80,000+ learners, 50+ countries",
-    text: "CFA, FRM, NISM and Financial Modelling — 7,000+ careers launched.",
   },
 ];
 

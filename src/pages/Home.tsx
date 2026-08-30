@@ -5,7 +5,6 @@ import { CardStack, StackCard } from "../components/CardStack";
 import {
   SITE,
   PROGRAMMES,
-  TIMELINE,
   FOUNDER,
   REVIEWS,
   GALLERY,
@@ -70,30 +69,6 @@ function AboutCard() {
             <p className="ft-label" style={{ marginTop: "0.25rem" }}>{s.label}</p>
           </div>
         ))}
-      </div>
-      {/* horizontal timeline */}
-      <div
-        className="mt-10 ft-reveal"
-        data-delay="3"
-        style={{ overflowX: "auto", paddingBottom: "0.5rem" }}
-      >
-        <div className="flex gap-4" style={{ minWidth: 760 }}>
-          {TIMELINE.map((t, i) => (
-            <div
-              key={i}
-              style={{
-                flex: 1,
-                borderTop: "2px solid var(--ft-accent)",
-                paddingTop: "1rem",
-                minWidth: 180,
-              }}
-            >
-              <p className="ft-label" style={{ color: "var(--ft-accent)" }}>{t.year}</p>
-              <p style={{ fontWeight: 700, margin: "0.4rem 0", lineHeight: 1.35 }}>{t.title}</p>
-              <p style={{ fontSize: "0.85rem", color: "var(--ft-ink-soft)", lineHeight: 1.55 }}>{t.text}</p>
-            </div>
-          ))}
-        </div>
       </div>
     </StackCard>
   );

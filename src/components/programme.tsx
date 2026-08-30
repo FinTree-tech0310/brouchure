@@ -616,12 +616,6 @@ export function CounsellorGrid() {
             </div>
             <p style={{ fontWeight: 700 }}>{c.name}</p>
             <p style={{ fontSize: "0.8rem", color: "var(--ft-ink-faint)", marginTop: "0.2rem" }}>{c.role}</p>
-            <a
-              href={`tel:${SITE.support.replace(/\s/g, "")}`}
-              style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--ft-accent)", display: "inline-block", marginTop: "0.6rem" }}
-            >
-              {SITE.support}
-            </a>
           </div>
         ))}
       </div>
