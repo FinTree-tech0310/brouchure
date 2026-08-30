@@ -116,7 +116,7 @@ export const GALLERY = [
   {
     cluster: "Online / Live School sessions",
     slots: 4,
-    images: ["live-1.jpg", "live-2.jpg", "live-3.jpg", "live-4.jpg"],
+    images: ["live-1.jpeg", "live-2.jpg", "live-3.jpg", "live-4.jpeg"],
   },
   {
     cluster: "Extra sessions and events",
