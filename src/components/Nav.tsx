@@ -6,6 +6,7 @@ const LINKS = [
   { to: "/frm", label: "FRM" },
   { to: "/fm", label: "FM" },
   { to: "/demo", label: "Demo Lectures" },
+  { to: "/contact", label: "Contact Us" },
 ];
 
 /** Minimal top nav — always visible. */
