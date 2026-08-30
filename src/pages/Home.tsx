@@ -80,7 +80,11 @@ function FounderCard() {
     <StackCard label="Utkarsh Jain, founder">
       <div className="grid gap-10 md:grid-cols-2 items-center h-full">
         <div className="ft-ph ft-ph--img ft-reveal" style={{ aspectRatio: "4/5", maxHeight: "62vh", width: "100%" }}>
-          <img src="/photos/founder.jpg" alt="Utkarsh Jain teaching a FinTree batch" />
+          <img
+            src="/photos/founder.jpg"
+            alt="Utkarsh Jain teaching a FinTree batch"
+            style={{ objectPosition: "center top" }}
+          />
         </div>
         <div>
           <p className="ft-label ft-reveal">The mind behind the method</p>
