@@ -619,12 +619,6 @@ export function CounsellorGrid() {
           </div>
         ))}
       </div>
-      <p className="ft-sub" style={{ textAlign: "center", marginTop: "2rem", fontSize: "0.95rem" }}>
-        No checkout, no pressure — just a real conversation. Support line:{" "}
-        <a href={`tel:${SITE.support.replace(/\s/g, "")}`} style={{ fontWeight: 700, color: "inherit" }}>
-          {SITE.support}
-        </a>
-      </p>
     </div>
   );
 }

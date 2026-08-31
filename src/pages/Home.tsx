@@ -147,52 +147,44 @@ function ReviewsCard() {
 }
 
 /* ---------------------------------------------------------------- Card 5 */
-/* per-photo focal tweaks so the teacher stays in frame on square crops */
-const GALLERY_POS: Record<string, React.CSSProperties> = {
-  /* run taller than the tile and anchor bottom-right: crops the ceiling,
-     keeps the teacher's head and the front rows visible */
-  "classroom-2.jpg": {
-    position: "absolute",
-    right: 0,
-    bottom: 0,
-    height: "135%",
-    width: "auto",
-    maxWidth: "none",
-    borderRadius: 0,
-  },
-};
-
 function GalleryCard() {
   const [open, setOpen] = useState<string | null>(null);
   return (
-    <StackCard label="Photo gallery">
-      <p className="ft-label ft-reveal">Gallery</p>
-      <h2 className="ft-title ft-reveal" data-delay="1" style={{ margin: "0.75rem 0 2rem" }}>
-        Inside FinTree.
-      </h2>
-      <div className="grid gap-8 md:grid-cols-3">
-        {GALLERY.map((g) => (
-          <div key={g.cluster} className="ft-reveal" data-delay="2">
-            <p className="ft-label" style={{ marginBottom: "0.75rem" }}>{g.cluster}</p>
-            <div className="grid grid-cols-2 gap-3">
-              {g.images.map((img, i) => {
-                const id = `${g.cluster} #${i + 1}`;
-                const src = `/photos/${img}`;
-                return (
-                  <button
-                    key={i}
-                    className="ft-ph ft-ph--img"
-                    style={{ aspectRatio: "1", cursor: "zoom-in" }}
-                    onClick={() => setOpen(src)}
-                    aria-label={`Open image ${id}`}
-                  >
-                    <img src={src} alt={`${g.cluster} — FinTree`} loading="lazy" style={GALLERY_POS[img]} />
-                  </button>
-                );
-              })}
+    <StackCard label="Photo gallery" flush>
+      <div className="ft-gallery-content">
+        <p className="ft-label ft-reveal">Gallery</p>
+        <h2 className="ft-title ft-reveal" data-delay="1" style={{ margin: "0.75rem 0 2rem" }}>
+          Inside FinTree.
+        </h2>
+        <div className="ft-gallery-groups">
+          {GALLERY.map((g) => (
+            <div key={g.cluster} className="ft-reveal" data-delay="2">
+              <p className="ft-label" style={{ marginBottom: "0.75rem" }}>{g.cluster}</p>
+              <div className="ft-gallery-grid" data-columns={g.columns}>
+                {g.images.map((img, i) => {
+                  const id = `${g.cluster} #${i + 1}`;
+                  const src = `/photos/${img}`;
+                  return (
+                    <button
+                      key={img}
+                      className="ft-ph ft-ph--img ft-gallery-tile"
+                      style={{ aspectRatio: "1", cursor: "zoom-in" }}
+                      onClick={() => setOpen(src)}
+                      aria-label={`Open image ${id}`}
+                    >
+                      <img
+                        src={src}
+                        alt={`${g.cluster} — FinTree`}
+                        loading="lazy"
+                        className="ft-gallery-image"
+                      />
+                    </button>
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
       {open &&
         createPortal(

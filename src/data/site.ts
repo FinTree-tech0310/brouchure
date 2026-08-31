@@ -111,17 +111,32 @@ export const GALLERY = [
   {
     cluster: "Classroom sessions",
     slots: 4,
+    columns: 2,
     images: ["classroom-1.jpg", "classroom-2.jpg", "classroom-3.jpg", "classroom-4.jpg"],
   },
   {
     cluster: "Online / Live School sessions",
     slots: 4,
-    images: ["live-1.jpeg", "live-2.jpg", "live-3.jpg", "live-4.jpeg"],
+    columns: 2,
+    images: [
+      "Online  Live School sessions 1.png",
+      "Online  Live School sessions 2.png",
+      "Online  Live School sessions 3.png",
+      "Online  Live School sessions 4.png",
+    ],
   },
   {
     cluster: "Extra sessions and events",
-    slots: 4,
-    images: ["event-1.jpg", "event-2.jpg", "event-3.jpg", "event-4.jpg"],
+    slots: 6,
+    columns: 3,
+    images: [
+      "Extra sessions and events 1.jpeg",
+      "Extra sessions and events 2.jpg",
+      "Extra sessions and events 3.jpeg",
+      "Extra sessions and events 4.jpg",
+      "Extra sessions and events 5.jpg",
+      "Extra sessions and events 6.jpg",
+    ],
   },
 ];
 
