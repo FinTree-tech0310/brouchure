@@ -7,7 +7,6 @@ import CfaPage from "./pages/CfaPage";
 import FrmPage from "./pages/FrmPage";
 import FmPage from "./pages/FmPage";
 import DemoPage from "./pages/DemoPage";
-import ContactPage from "./pages/ContactPage";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -29,7 +28,6 @@ export default function App() {
           <Route path="/frm" element={<FrmPage />} />
           <Route path="/fm" element={<FmPage />} />
           <Route path="/demo" element={<DemoPage />} />
-          <Route path="/contact" element={<ContactPage />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </main>
