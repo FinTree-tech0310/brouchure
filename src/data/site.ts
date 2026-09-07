@@ -13,6 +13,13 @@ export const SITE = {
   hours: "Open 9 am – 8 pm daily",
   address:
     "FinTree, Ashok Sankul-2, 207, Second Floor, above ICICI Bank, Bhoslenagar, Pune, Maharashtra 411020",
+  socials: [
+    { name: "WhatsApp", url: "https://wa.me/918888077722" },
+    { name: "Instagram", url: "https://www.instagram.com/fintreeeducation/" },
+    { name: "Facebook", url: "https://www.facebook.com/FinTree" },
+    { name: "YouTube", url: "https://www.youtube.com/@FintreeIndia" },
+    { name: "LinkedIn", url: "https://www.linkedin.com/company/fintree-education" },
+  ],
   stats: [
     { value: "15", label: "Years" },
     { value: "80,000+", label: "Learners" },

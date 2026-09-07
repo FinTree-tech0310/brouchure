@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
+import Seo from "./components/Seo";
 import Home from "./pages/Home";
 import CfaPage from "./pages/CfaPage";
 import FrmPage from "./pages/FrmPage";
@@ -20,6 +21,7 @@ export default function App() {
   return (
     <>
       <ScrollToTop />
+      <Seo />
       <Nav />
       <main>
         <Routes>

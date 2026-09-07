@@ -1,39 +1,24 @@
+import { SITE } from "../data/site";
+
 export default function Footer() {
   return (
-    <footer
-      style={{
-        background: "var(--ft-card-bg-inverse)",
-        color: "var(--ft-ink-inverse)",
-        padding: "1.75rem var(--ft-gutter)",
-        position: "relative",
-        zIndex: 5,
-      }}
-    >
-      <div
-        style={{
-          maxWidth: "var(--ft-content-max)",
-          margin: "0 auto",
-          display: "flex",
-          alignItems: "center",
-          gap: "1.5rem",
-          flexWrap: "wrap",
-          justifyContent: "space-between",
-        }}
-      >
-        <img
-          src="/brand/fintree-logo-white.png"
-          alt="FinTree Education"
-          style={{ height: 34, width: "auto", display: "block" }}
-        />
-        <p
-          style={{
-            color: "var(--ft-ink-inverse-soft)",
-            fontSize: "0.75rem",
-            lineHeight: 1.6,
-            maxWidth: 720,
-            margin: 0,
-          }}
-        >
+    <footer className="ft-footer">
+      <div className="ft-footer-inner">
+        <div className="ft-footer-top">
+          <img
+            src="/brand/fintree-logo-white.png"
+            alt="FinTree Education"
+            className="ft-footer-logo"
+          />
+          <nav className="ft-footer-socials" aria-label="FinTree social media">
+            {SITE.socials.map((social) => (
+              <a key={social.name} href={social.url} target="_blank" rel="noopener noreferrer">
+                {social.name}
+              </a>
+            ))}
+          </nav>
+        </div>
+        <p className="ft-footer-legal">
           © {new Date().getFullYear()} FinTree Education Private Limited · CFA® Institute does not
           endorse, promote, review or warrant the accuracy or quality of the products and services
           offered by FinTree. GARP does not endorse any pass rates that may be claimed by FinTree.
