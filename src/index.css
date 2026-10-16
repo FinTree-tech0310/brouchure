@@ -791,6 +791,30 @@ button.ft-ph--img:hover {
   font-size: 0.72rem;
   line-height: 1.5;
 }
+
+/* Equal counsellor cards with centered incomplete rows */
+.ft-counsellor-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+.ft-counsellor-card {
+  flex: 0 1 100%;
+  max-width: 100%;
+}
+@media (min-width: 640px) {
+  .ft-counsellor-card {
+    flex-basis: calc((100% - 1rem) / 2);
+    max-width: calc((100% - 1rem) / 2);
+  }
+}
+@media (min-width: 1024px) {
+  .ft-counsellor-card {
+    flex-basis: calc((100% - 3rem) / 4);
+    max-width: calc((100% - 3rem) / 4);
+  }
+}
 @media (max-width: 640px) {
   .ft-footer-top {
     align-items: flex-start;

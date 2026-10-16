@@ -424,7 +424,7 @@ const PLAN_META: Record<string, { kind: string; features: string[] }> = {
   },
   "Live School": {
     kind: "Instructor-led",
-    features: ["Live online classes — nothing pre-recorded", "Soft-copy Juice Notes™", "48-hour archive of every live session", "Doubt-clearing forum"],
+    features: ["Live online classes + pre-recorded videos", "Soft-copy Juice Notes™", "48-hour archive of every live session", "Doubt-clearing forum"],
   },
   "Home School": {
     kind: "Self-paced",
@@ -432,7 +432,7 @@ const PLAN_META: Record<string, { kind: string; features: string[] }> = {
   },
   Essential: {
     kind: "Self-paced",
-    features: ["Pre-recorded videos", "Doubt-clearing forum"],
+    features: ["Level Zero™ onboarding + study planner", "Pre-recorded videos", "Question Bank", "3 full-length mock exams"],
   },
 };
 
@@ -608,9 +608,9 @@ export function FeeGrid({ fees }: { fees: FeeConfig }) {
 export function CounsellorGrid() {
   return (
     <div>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="ft-counsellor-grid">
         {COUNSELLORS.map((c) => (
-          <div key={c.name} className="ft-tile" style={{ padding: "1.25rem", textAlign: "center" }}>
+          <div key={c.name} className="ft-tile ft-counsellor-card" style={{ padding: "1.25rem", textAlign: "center" }}>
             <div className={`ft-ph${c.img ? " ft-ph--img" : ""}`} style={{ width: 84, height: 84, borderRadius: "50%", margin: "0 auto 0.9rem", fontSize: "0.55rem" }}>
               {c.img ? <img src={c.img} alt={c.name} loading="lazy" /> : "[photo]"}
             </div>

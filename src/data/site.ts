@@ -216,12 +216,11 @@ export const PLACEMENT = {
 export const COUNSELLORS = [
   { name: "Ayush Gupta", role: "Product Manager — CFA", img: "/photos/team/ayush.jpg" },
   { name: "Ritesh Khound", role: "Candidate Communication Associate", img: "/photos/team/ritesh.jpg" },
-  { name: "Arya Yelkar", role: "Candidate Communication Associate", img: "/photos/team/arya.jpg" },
-  { name: "Shruti Pawar", role: "Candidate Communication Associate", img: "/photos/team/shruti.jpg" },
+  { name: "Shruti Pawar", role: "Candidate Communication Associate", img: "/photos/team/shruti-headshot.jpg" },
   { name: "Harsh Deshpande", role: "Candidate Communication Associate", img: "/photos/team/harsh.jpg" },
   { name: "Vaishnavi Desai", role: "Candidate Communication Associate", img: "/photos/team/vaishnavi.jpg" },
   { name: "Artha Nandkar", role: "Candidate Communication Associate", img: "/photos/team/artha.jpg" },
-  { name: "Abhijeet Pol", role: "Performance Marketing Associate", img: "" },
+  { name: "Abhijeet Pol", role: "Performance Marketing Associate", img: "/photos/team/abhijeet-headshot.jpg" },
 ];
 
 /* ==========================================================================
