@@ -52,7 +52,11 @@ export const FRM = {
         { k: "Format", v: "Computer-based · 100 MCQs" },
         { k: "Duration", v: "4 hours" },
         { k: "Exam windows", v: "May · Aug · Nov" },
-        { k: "Registration fee", v: "[placeholder — see garp.org]" },
+        {
+          k: "Registration fee",
+          v: "See GARP for current registration fees",
+          url: "https://www.garp.org/frm/fees-payments",
+        },
       ],
       note: "Passport or government-issued driver's licence required. Permitted calculators: TI BA II Plus / Professional, HP 12C.",
       weights: [
@@ -71,7 +75,11 @@ export const FRM = {
         { k: "Format", v: "Computer-based · 80 MCQs" },
         { k: "Duration", v: "4 hours" },
         { k: "Exam windows", v: "May · Aug · Nov" },
-        { k: "Registration fee", v: "[placeholder — see garp.org]" },
+        {
+          k: "Registration fee",
+          v: "See GARP for current registration fees",
+          url: "https://www.garp.org/frm/fees-payments",
+        },
       ],
       note: "Scholarships exist exclusively for students and faculty in GARP's Academic Partner Program. FinTree can't grant or influence scholarships.",
       weights: [
@@ -95,26 +103,24 @@ export const FRM = {
     ],
   },
   fees: {
-    note: "No Classroom format for FRM — Live School, Home School and Essential. Starts at ₹30,000.",
+    note: "No Classroom format for FRM — Live School, Home School and Essential.",
     plans: ["Live School", "Home School", "Essential"],
     levels: [
       {
         level: "Part I",
         windows: [
-          { window: "Nov 2026", prices: ["₹36,000", "₹33,000", "₹30,000"] },
-          { window: "May 2027", prices: ["₹42,000", "₹39,000", "₹36,000"] },
-          { window: "Aug 2027", prices: ["₹45,000", "₹42,000", "₹39,000"] },
-          { window: "Nov 2027", prices: ["₹48,000", "₹45,000", "₹42,000"] },
+          { window: "May 2027", prices: ["₹39,000", "₹36,000", "₹33,000"] },
+          { window: "Aug 2027", prices: ["₹42,000", "₹39,000", "₹36,000"] },
+          { window: "Nov 2027", prices: ["₹45,000", "₹42,000", "₹39,000"] },
         ],
       },
       {
         level: "Part II",
         plans: ["Home School"],
         windows: [
-          { window: "Nov 2026", prices: ["₹39,000"] },
-          { window: "May 2027", prices: ["₹45,000"] },
-          { window: "Aug 2027", prices: ["₹48,000"] },
-          { window: "Nov 2027", prices: ["₹51,000"] },
+          { window: "May 2027", prices: ["₹42,000"] },
+          { window: "Aug 2027", prices: ["₹45,000"] },
+          { window: "Nov 2027", prices: ["₹48,000"] },
         ],
         note: "Part II is offered in the self-paced Home School format.",
       },

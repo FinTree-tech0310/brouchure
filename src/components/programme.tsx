@@ -227,7 +227,7 @@ export function CompareTable({
 export type ExamLevel = {
   level: string;
   intro: string;
-  structure: { k: string; v: string }[];
+  structure: { k: string; v: string; url?: string }[];
   note: string;
   weights: [string, string][];
   weightsTitle: string;
@@ -268,7 +268,18 @@ export function ExamDetails({ levels }: { levels: ExamLevel[] }) {
         {L.structure.map((s) => (
           <div key={s.k} className="ft-tile" style={{ padding: "1.1rem 1.25rem" }}>
             <p className="ft-label">{s.k}</p>
-            <p style={{ fontWeight: 700, marginTop: "0.4rem", lineHeight: 1.4 }}>{s.v}</p>
+            <p style={{ fontWeight: 700, marginTop: "0.4rem", lineHeight: 1.4 }}>
+              {s.url ? (
+                <a
+                  href={s.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: "inherit", font: "inherit", textDecoration: "none" }}
+                >
+                  {s.v}
+                </a>
+              ) : s.v}
+            </p>
           </div>
         ))}
       </div>
@@ -412,7 +423,7 @@ export type FeeConfig = {
     windows: { window: string; prices: (string | null)[] }[];
     note?: string;
   }[];
-  packs: { name: string; tag: string; price: string; desc: string }[];
+  packs: { name: string; tag: string; price?: string; priceUrl?: string; priceLabel?: string; desc: string }[];
   combos?: { name: string; tag: string; price: string; desc: string }[];
   footnote: string;
 };
@@ -564,7 +575,18 @@ export function FeeGrid({ fees }: { fees: FeeConfig }) {
               <div key={p.name} className="ft-tile" style={{ padding: "1.4rem" }}>
                 <p className="ft-label">{p.tag}</p>
                 <p style={{ fontWeight: 800, marginTop: "0.5rem" }}>{p.name}</p>
-                <p style={{ fontWeight: 700, color: "var(--ft-accent)", marginTop: "0.25rem" }}>{p.price}</p>
+                {p.priceUrl ? (
+                  <a
+                    href={p.priceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ display: "inline-block", fontWeight: 700, color: "var(--ft-accent)", marginTop: "0.25rem" }}
+                  >
+                    {p.priceLabel ?? "View current prices"}
+                  </a>
+                ) : (
+                  <p style={{ fontWeight: 700, color: "var(--ft-accent)", marginTop: "0.25rem" }}>{p.price}</p>
+                )}
                 <p style={{ fontSize: "0.83rem", color: "var(--ft-ink-soft)", marginTop: "0.6rem", lineHeight: 1.55 }}>
                   {p.desc}
                 </p>
