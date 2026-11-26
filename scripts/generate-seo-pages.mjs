@@ -26,7 +26,7 @@ const organization = {
   address: { "@type": "PostalAddress", streetAddress: "Ashok Sankul-2, 207, Second Floor, above ICICI Bank, Bhoslenagar", addressLocality: "Pune", addressRegion: "Maharashtra", postalCode: "411020", addressCountry: "IN" },
   contactPoint: [
     { "@type": "ContactPoint", telephone: "+91 8888733330", contactType: "customer support" },
-    { "@type": "ContactPoint", telephone: "+91 8888077722", contactType: "WhatsApp support", url: "https://wa.me/918888077722" },
+    { "@type": "ContactPoint", telephone: "+91 8888733330", contactType: "WhatsApp support", url: "https://wa.me/918888733330" },
   ],
   sameAs: ["https://www.instagram.com/fintreeeducation/", "https://www.facebook.com/FinTree", "https://www.youtube.com/@FintreeIndia", "https://www.linkedin.com/company/fintree-education"],
 };

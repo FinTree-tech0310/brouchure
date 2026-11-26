@@ -14,7 +14,7 @@ export const SITE = {
   address:
     "FinTree, Ashok Sankul-2, 207, Second Floor, above ICICI Bank, Bhoslenagar, Pune, Maharashtra 411020",
   socials: [
-    { name: "WhatsApp", url: "https://wa.me/918888077722" },
+    { name: "WhatsApp", url: "https://wa.me/918888733330" },
     { name: "Instagram", url: "https://www.instagram.com/fintreeeducation/" },
     { name: "Facebook", url: "https://www.facebook.com/FinTree" },
     { name: "YouTube", url: "https://www.youtube.com/@FintreeIndia" },
